@@ -625,19 +625,21 @@ class Ps_ImageSlider extends Module implements WidgetInterface
         $html = '<script type="text/javascript">
               $(function() {
                 var $mySlides = $("#slides");
-                new Sortable($mySlides[0], {
-                  animation: 150,
-                  onUpdate: function(event) {
-                    var order = this.toArray().join("&") + "&action=updateSlidesPosition";
-                    $.post("' . $this->context->shop->physical_uri . $this->context->shop->virtual_uri . 'modules/' . $this->name . '/ajax_' . $this->name . '.php?secure_key=' . $this->secure_key . '", order);
-                  }
-                });
-                $mySlides.hover(function() {
-                    $(this).css("cursor","move");
-                    },
-                    function() {
-                    $(this).css("cursor","auto");
-                });
+                if($mySlides.length){
+                    new Sortable($mySlides[0], {
+                      animation: 150,
+                      onUpdate: function(event) {
+                        var order = this.toArray().join("&") + "&action=updateSlidesPosition";
+                        $.post("' . $this->context->shop->physical_uri . $this->context->shop->virtual_uri . 'modules/' . $this->name . '/ajax_' . $this->name . '.php?secure_key=' . $this->secure_key . '", order);
+                      }
+                    });
+                    $mySlides.hover(function() {
+                        $(this).css("cursor","move");
+                        },
+                        function() {
+                        $(this).css("cursor","auto");
+                    });
+                }
             });
         </script>';
 
